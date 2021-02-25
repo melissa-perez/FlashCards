@@ -14,6 +14,7 @@ Toggle functionality added between question and answer.
 There was a further addition of multiple choice selection for answers(hard-coded). 
 The correct answer highlights green, while the incorrect answers highlight red(no reset). 
 There is a toggle icon for visibility which hides the multiple choice answers or displays them.
+Some styling was added for a retro purple-pink theme.
 
 ### App Walk-though
 
