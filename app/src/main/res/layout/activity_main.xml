@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/deep_purple"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -10,17 +11,103 @@
         android:id="@+id/flashcard_question"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:textSize="40dp"
         android:gravity="center"
-        android:text="Who is the 44th President of the United States?" />
+        android:background="@drawable/question_side_drawable"
+        android:text="Who is the 44th President of the United States?"
+        android:textColor="#f5f5f5"
+        android:elevation="10dp"/>
 
     <TextView
         android:id="@+id/flashcard_answer"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:visibility="invisible"
+        android:background="@drawable/answer_side_drawable"
         android:textSize="40dp"
+        android:textColor="#f0e5d8"
         android:gravity="center"
-        android:text="Barack Obama" />
+        android:text="Barack Obama"
+        android:elevation="10dp"/>
+
+    <TextView
+        android:id="@+id/choice1"
+        android:text="Bill Clinton"
+        android:background="@drawable/choices_drawable"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="30dp"
+        android:textColor="#f6f5f5"
+        android:layout_below="@id/flashcard_question"/>
+
+    <TextView
+        android:id="@+id/choice2"
+        android:text="George H. W. Bush"
+        android:background="@drawable/choices_drawable"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="#f6f5f5"
+        android:layout_below="@id/choice1"/>
+
+    <TextView
+        android:id="@+id/choice3"
+        android:text="Barack Obama"
+        android:background="@drawable/choices_drawable"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="#f6f5f5"
+        android:layout_below="@id/choice2"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/unhide_icon"
+        android:src="@drawable/ic_iconmonstr_eye_thin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:tint="@color/white"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/hide_icon"
+        android:src="@drawable/ic_iconmonstr_eye_off_thin"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:tint="@color/white"/>
+
 </RelativeLayout>
 
