@@ -9,7 +9,9 @@ Android Studio, Android SDK 23, Java
 ## Lab 1
 
 ### App Description
-FlashCards v1 has limited functionality. Currently has a views for a single question and answer. There is an option to toggle back and forth between question and answer.
+FlashCards v1 has limited functionality. The app is currently displaying a one question and answer. Toggle functionality added between question and answer. There 
+was a further addition of multiple choices for answer which are also hard-corded. The correct answer highlights green, while the incorrect answers highlight red. 
+There is a toggle for visibility also, which hide the multiple choice answers or displays them.
 
 ### App Walk-though
 
