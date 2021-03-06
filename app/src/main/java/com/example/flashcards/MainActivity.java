@@ -94,11 +94,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                     Intent addCardIntent = new Intent(MainActivity.this,
                             AddCardActivity.class);
-                    MainActivity.this.startActivity(addCardIntent);
-
+                    MainActivity.this.startActivityForResult(addCardIntent, 100);
                 }
 
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        TextView flashcardQuestion = findViewById(R.id.flashcard_question);
+        TextView flashcardAnswer = findViewById(R.id.flashcard_answer);
+
+        if (requestCode == 100 && resultCode == RESULT_OK) { // this 100 needs to match
+            String newQuestion = data.getExtras().getString("question");
+            String newAnswer = data.getExtras().getString("answer");
+            flashcardQuestion.setText(newQuestion);
+            flashcardAnswer.setText(newAnswer);
+        }
     }
 }
 
