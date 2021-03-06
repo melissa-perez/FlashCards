@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-    boolean isShowingAnswers = true;
+    boolean isShowingAnswers = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView flashcardQuestion = findViewById(R.id.flashcard_question);
         TextView flashcardAnswer = findViewById(R.id.flashcard_answer);
-        ImageView eyeToggle = findViewById(R.id.hide_icon);
+        ImageView eyeToggle = findViewById(R.id.unhide_icon);
         ImageView addCard = findViewById(R.id.add_icon);
         TextView wrongAnswer1 = findViewById(R.id.choice1);
         TextView wrongAnswer2 = findViewById(R.id.choice2);
@@ -71,19 +71,19 @@ public class MainActivity extends AppCompatActivity {
         eyeToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                if(isShowingAnswers) {
-                    isShowingAnswers = false;
-                    eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_thin);
-                    correctAnswer.setVisibility(View.INVISIBLE);
-                    wrongAnswer1.setVisibility(View.INVISIBLE);
-                    wrongAnswer2.setVisibility(View.INVISIBLE);
-                }
-                else{
+                if(!isShowingAnswers) {
+                    isShowingAnswers = true;
                     eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_off_thin);
                     correctAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer1.setVisibility(View.VISIBLE);
                     wrongAnswer2.setVisibility(View.VISIBLE);
-                    isShowingAnswers = true;
+                }
+                else{
+                    eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_thin);
+                    correctAnswer.setVisibility(View.INVISIBLE);
+                    wrongAnswer1.setVisibility(View.INVISIBLE);
+                    wrongAnswer2.setVisibility(View.INVISIBLE);
+                    isShowingAnswers = false;
                 }
             }
         });
