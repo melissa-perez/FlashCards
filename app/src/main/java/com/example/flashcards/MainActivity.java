@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         TextView flashcardQuestion = findViewById(R.id.flashcard_question);
         TextView flashcardAnswer = findViewById(R.id.flashcard_answer);
         ImageView eyeToggle = findViewById(R.id.unhide_icon);
+        ImageView editCard = findViewById(R.id.edit_icon);
         ImageView addCard = findViewById(R.id.add_icon);
         TextView wrongAnswer1 = findViewById(R.id.choice1);
         TextView wrongAnswer2 = findViewById(R.id.choice2);
