@@ -9,8 +9,8 @@ Android Studio, Android SDK 23, Java
 ## Lab 2
 
 ### App Description
-FlashCards v2 has less limited functionality. The app can now display a new card's question and answer. The new question screen is accessed by the + button and
-returns to the main screen using either the cancel button or the Save button, which will save the entered text to display as a new question. Cards are still not stored locally and new additions will overwrite the current question.
+FlashCards v2 has less limited functionality. The app can now display a new card's question and answer. The new question screen is accessed by the ‘+’ button and
+returns to the main screen using either the ‘x’ button or the Save ‘floppy-disc’ button, which will save the entered text to display as a new question. Cards are still not stored locally and new additions will overwrite the current question.
 
 ### App Walk-though
 <img src="lab2-v1.gif" width=200><br>
