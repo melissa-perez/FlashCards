@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Add--Cancel Button, bottom right anchor
+        // Add Button, bottom right anchor
         addCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
@@ -98,6 +98,24 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.startActivityForResult(addCardIntent, 100);
                 }
 
+        });
+
+        // Edit Button, bottom left anchor
+        editCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+                String questionToEdit = ((TextView) flashcardQuestion).getText().toString();
+                String answerToEdit = ((TextView) flashcardAnswer).getText().toString();
+
+                Intent editCardIntent = new Intent(MainActivity.this,
+                        AddCardActivity.class);
+
+
+                editCardIntent.putExtra("question", questionToEdit);
+                editCardIntent.putExtra("answer", answerToEdit);
+                MainActivity.this.startActivityForResult(editCardIntent, 100);
+            }
         });
     }
 

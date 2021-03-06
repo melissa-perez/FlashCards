@@ -12,8 +12,18 @@ public class AddCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setTitle("Add a New Card");
+        this.setTitle("Add/Edit a New Card ");
         setContentView(R.layout.activity_add_card);
+
+        // after clicking edit, we can get the question that we are editing
+        String questionToEdit = getIntent().getStringExtra("question");
+        String answerToEdit = getIntent().getStringExtra("answer");
+
+        EditText editQuestion = findViewById(R.id.editQuestionField);
+        editQuestion.setText(questionToEdit);
+        EditText editAnswer = findViewById(R.id.editAnswerField);
+        editAnswer.setText(answerToEdit);
+
 
         ImageView closeCard = findViewById(R.id.close_icon);
         ImageView saveCard = findViewById(R.id.save_icon);
