@@ -1,6 +1,7 @@
 package com.example.flashcards;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -129,6 +130,10 @@ public class MainActivity extends AppCompatActivity {
             String newAnswer = data.getExtras().getString("answer");
             flashcardQuestion.setText(newQuestion);
             flashcardAnswer.setText(newAnswer);
+            Snackbar.make(flashcardQuestion,
+                    "Created card successfully.",
+                    Snackbar.LENGTH_SHORT)
+                    .show();
         }
     }
 }
