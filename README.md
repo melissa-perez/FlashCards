@@ -36,7 +36,7 @@ when a card is edited or created a message is also shown. This is because the Ed
 ## Lab 1
 
 ### App Description
-FlashCards v1 has limited functionality. The app is currently displaying one question and answer(hard-coded).
+FlashCards v1 has limited functionality. The app currently displays one question and answer(hard-coded).
 Toggle functionality added between question and answer. 
 There was a further addition of multiple choice selection for answers(hard-coded). 
 The correct answer highlights green, while the incorrect answers highlight red(no reset). 
