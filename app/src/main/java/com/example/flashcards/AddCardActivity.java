@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddCardActivity extends AppCompatActivity {
 
@@ -37,11 +40,19 @@ public class AddCardActivity extends AppCompatActivity {
                         .getText().toString();
                 String answerToReturn = ((EditText) findViewById(R.id.editAnswerField))
                         .getText().toString();
-                Intent data = new Intent(); // put our data
-                 data.putExtra("question", questionToReturn); // the key as 'string1'
-                 data.putExtra("answer", answerToReturn); // the key as 'string2
-                  setResult(RESULT_OK, data); // set result code and bundle data for response
-                finish();
+
+                if(questionToReturn.isEmpty())
+                    displayToast("Must enter both question and answer.");
+                else if(answerToReturn.isEmpty())
+                    displayToast("Must enter both question and answer.");
+                else{
+                    Intent data = new Intent(); // put our data
+                    data.putExtra("question", questionToReturn); // the key as 'string1'
+                    data.putExtra("answer", answerToReturn); // the key as 'string2
+                    setResult(RESULT_OK, data); // set result code and bundle data for response
+                    finish();
+                }
+
             }
         });
 
@@ -51,6 +62,18 @@ public class AddCardActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
 
+    private void displayToast(String message) {
+        // Inflate toast XML layout
+        View layout = getLayoutInflater().inflate(R.layout.toast_layout,
+                (ViewGroup) findViewById(R.id.toast_layout_root));
+        // Fill in the message into the textview
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(message);
+        // Construct the toast, set the view and display
+        Toast toast = new Toast(getApplicationContext());
+        toast.setView(layout);
+        toast.show();
     }
 }

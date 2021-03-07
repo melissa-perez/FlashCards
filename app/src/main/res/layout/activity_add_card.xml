@@ -50,7 +50,7 @@
         android:hint="Enter new question text here."
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:backgroundTint="@color/shock_pink"/>
+        android:backgroundTint="@color/shock_purple"/>
 
     <EditText
         android:id="@+id/editAnswerField"
@@ -65,7 +65,7 @@
         android:hint="Enter correct answer here."
         android:textColorHint="@color/white"
         android:textColor="@color/white"
-        android:backgroundTint="@color/shock_purple"
+        android:backgroundTint="@color/shock_orange"
         android:layout_below="@id/editQuestionField"/>
 
 
