@@ -10,7 +10,10 @@ Android Studio, Android SDK 23, Java
 
 ### App Description
 FlashCards v2 has less limited functionality. The app can now display a new card's question and answer. The new question screen is accessed by the ‘+’ button and
-returns to the main screen using either the ‘x’ button or the Save ‘floppy-disc’ button, which will save the entered text to display as a new question. Cards are still not stored locally and new additions will overwrite the current question.
+returns to the main screen using either the ‘x’ button or the Save ‘arrow’ button, which will save the entered text to display as a new question. Cards are still not stored locally and new additions will overwrite the current question.
+
+Further functionality is added. The can edit a card question and all answers. If any of these components are missing in an attempted save, a error message is shown. Lastly,
+when a card is edited or created a message is also shown. This is because the Edit and Create functionalities share the same Activity. The colors for correct/wrong options are still not reset.
 
 ### App Walk-though
 <img src="lab2-v1.gif" width=200><br>
@@ -27,7 +30,7 @@ returns to the main screen using either the ‘x’ button or the Save ‘floppy
 - [x] User can edit a card
 - [x] An error message is shown if the user doesn't enter both a Question and an Answer
 - [x] A notification is shown if the card was created successfully
-- [ ] User can also enter multiple choice answers when creating a card
+- [x] User can also enter multiple choice answers when creating a card
 - [x] App is further styled and customized!
 
 ## Lab 1
