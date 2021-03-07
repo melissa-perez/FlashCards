@@ -105,16 +105,19 @@ public class MainActivity extends AppCompatActivity {
         editCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-
                 String questionToEdit = ((TextView) flashcardQuestion).getText().toString();
                 String answerToEdit = ((TextView) flashcardAnswer).getText().toString();
+                String wrongOptionToEdit1 = ((TextView) wrongAnswer1).getText().toString();
+                String wrongOptionToEdit2 = ((TextView) wrongAnswer2).getText().toString();
+                String correctOption = ((TextView) correctAnswer).getText().toString();
 
                 Intent editCardIntent = new Intent(MainActivity.this,
                         AddCardActivity.class);
 
-
                 editCardIntent.putExtra("question", questionToEdit);
                 editCardIntent.putExtra("answer", answerToEdit);
+                editCardIntent.putExtra("wrong1", wrongOptionToEdit1);
+                editCardIntent.putExtra("wrong2", wrongOptionToEdit2);
                 MainActivity.this.startActivityForResult(editCardIntent, 100);
             }
         });
@@ -124,14 +127,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         TextView flashcardQuestion = findViewById(R.id.flashcard_question);
         TextView flashcardAnswer = findViewById(R.id.flashcard_answer);
+        TextView wrongAnswer1 = findViewById(R.id.choice1);
+        TextView wrongAnswer2 = findViewById(R.id.choice2);
+        TextView correctAnswer = findViewById(R.id.choice3);
 
         if (requestCode == 100 && resultCode == RESULT_OK) { // this 100 needs to match
             String newQuestion = data.getExtras().getString("question");
             String newAnswer = data.getExtras().getString("answer");
+            String newWrongOption1 = data.getExtras().getString("wrong1");
+            String newWrongOption2 = data.getExtras().getString("wrong2");
             flashcardQuestion.setText(newQuestion);
             flashcardAnswer.setText(newAnswer);
+            wrongAnswer1.setText(newWrongOption1);
+            wrongAnswer2.setText(newWrongOption2);
+            correctAnswer.setText(newAnswer);
+
             Snackbar.make(flashcardQuestion,
-                    "Created card successfully.",
+                    "Created/Edited card successfully.",
                     Snackbar.LENGTH_SHORT)
                     .show();
         }
