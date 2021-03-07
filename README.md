@@ -16,7 +16,7 @@ Further functionality is added. The can edit a card question and all answers. If
 when a card is edited or created a message is also shown. This is because the Edit and Create functionalities share the same Activity. The colors for correct/wrong options are still not reset.
 
 ### App Walk-though
-<img src="lab2-v1.gif" width=200><br>
+<img src="lab2-v2.gif" width=200><br>
 
 
 ## Required
