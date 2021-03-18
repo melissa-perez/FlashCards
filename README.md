@@ -1,4 +1,4 @@
-## FlashCards
+## Flash Cards
 
 ### App Description
 FlashCards is an Android application that allows users to create virtual flash cards for memorization and learning.
