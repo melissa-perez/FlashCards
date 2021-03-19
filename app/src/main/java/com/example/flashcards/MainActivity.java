@@ -1,8 +1,8 @@
 package com.example.flashcards;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -11,9 +11,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     boolean isShowingAnswers = false;
+
+    FlashcardDatabase flashcardDatabase;
+    List<Flashcard> allFlashcards;
+    int currentCardDisplayedIndex = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,10 +35,23 @@ public class MainActivity extends AppCompatActivity {
         TextView wrongAnswer1 = findViewById(R.id.choice1);
         TextView wrongAnswer2 = findViewById(R.id.choice2);
         TextView correctAnswer = findViewById(R.id.choice3);
+        ImageView nextCard = findViewById(R.id.cycle_icon);
+
+
+        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+
+        allFlashcards = flashcardDatabase.getAllCards();
+
+        if (allFlashcards != null && allFlashcards.size() > 0) {
+            ((TextView) findViewById(R.id.flashcard_question)).
+                    setText(allFlashcards.get(0).getQuestion());
+            ((TextView) findViewById(R.id.flashcard_answer)).
+                    setText(allFlashcards.get(0).getAnswer());
+        }
 
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 flashcardQuestion.setVisibility(View.INVISIBLE);
                 flashcardAnswer.setVisibility(View.VISIBLE);
             }
@@ -39,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         flashcardAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 flashcardQuestion.setVisibility(View.VISIBLE);
                 flashcardAnswer.setVisibility(View.INVISIBLE);
             }
@@ -47,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         wrongAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 wrongAnswer1.setBackgroundColor(getResources().getColor(R.color.incorrect_red,
                         null));
             }
@@ -55,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         wrongAnswer2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 wrongAnswer2.setBackgroundColor(getResources().getColor(R.color.incorrect_red,
                         null));
             }
@@ -63,24 +83,23 @@ public class MainActivity extends AppCompatActivity {
 
         correctAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 correctAnswer.setBackgroundColor(getResources().getColor(R.color.correct_green,
-                            null));
+                        null));
 
             }
         });
 
         eyeToggle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                if(!isShowingAnswers) {
+            public void onClick(View v) {
+                if (!isShowingAnswers) {
                     isShowingAnswers = true;
                     eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_off_thin);
                     correctAnswer.setVisibility(View.VISIBLE);
                     wrongAnswer1.setVisibility(View.VISIBLE);
                     wrongAnswer2.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_thin);
                     correctAnswer.setVisibility(View.INVISIBLE);
                     wrongAnswer1.setVisibility(View.INVISIBLE);
@@ -90,26 +109,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Add Button, bottom right anchor
-        addCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                    Intent addCardIntent = new Intent(MainActivity.this,
-                            AddCardActivity.class);
-                    MainActivity.this.startActivityForResult(addCardIntent, 100);
-                }
-
-        });
-
         // Edit Button, bottom left anchor
         editCard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 String questionToEdit = ((TextView) flashcardQuestion).getText().toString();
                 String answerToEdit = ((TextView) flashcardAnswer).getText().toString();
                 String wrongOptionToEdit1 = ((TextView) wrongAnswer1).getText().toString();
                 String wrongOptionToEdit2 = ((TextView) wrongAnswer2).getText().toString();
-                String correctOption = ((TextView) correctAnswer).getText().toString();
 
                 Intent editCardIntent = new Intent(MainActivity.this,
                         AddCardActivity.class);
@@ -119,6 +126,32 @@ public class MainActivity extends AppCompatActivity {
                 editCardIntent.putExtra("wrong1", wrongOptionToEdit1);
                 editCardIntent.putExtra("wrong2", wrongOptionToEdit2);
                 MainActivity.this.startActivityForResult(editCardIntent, 100);
+            }
+        });
+
+        // Add Button, bottom right anchor
+        addCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addCardIntent = new Intent(MainActivity.this,
+                        AddCardActivity.class);
+                MainActivity.this.startActivityForResult(addCardIntent, 100);
+            }
+
+        });
+
+        // Next card button, on top of eye icon
+        nextCard.setOnClickListener(new View.OnClickListener(){
+            @Override public void onClick(View v) {
+                if (allFlashcards != null && allFlashcards.size() > 0) {
+                    currentCardDisplayedIndex += 1;
+                    if(currentCardDisplayedIndex < allFlashcards.size()){
+                        ((TextView) findViewById(R.id.flashcard_question)).
+                                setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                        ((TextView) findViewById(R.id.flashcard_answer)).
+                                setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                    }
+                }
             }
         });
     }
@@ -134,13 +167,16 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100 && resultCode == RESULT_OK) { // this 100 needs to match
             String newQuestion = data.getExtras().getString("question");
             String newAnswer = data.getExtras().getString("answer");
-            String newWrongOption1 = data.getExtras().getString("wrong1");
-            String newWrongOption2 = data.getExtras().getString("wrong2");
+           // String newWrongOption1 = data.getExtras().getString("wrong1");
+           // String newWrongOption2 = data.getExtras().getString("wrong2");
             flashcardQuestion.setText(newQuestion);
             flashcardAnswer.setText(newAnswer);
-            wrongAnswer1.setText(newWrongOption1);
-            wrongAnswer2.setText(newWrongOption2);
-            correctAnswer.setText(newAnswer);
+            //wrongAnswer1.setText(newWrongOption1);
+           // wrongAnswer2.setText(newWrongOption2);
+           // correctAnswer.setText(newAnswer);
+
+            flashcardDatabase.insertCard(new Flashcard(newQuestion, newAnswer));
+            allFlashcards = flashcardDatabase.getAllCards();
 
             Snackbar.make(flashcardQuestion,
                     "Created/Edited card successfully.",
