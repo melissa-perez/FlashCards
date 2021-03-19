@@ -13,7 +13,6 @@ FlashCards v3 has more functionality. The user can now keep any created cards up
 
 
 ### App Walk-though
-`TODO://` Add the URL to your animated app walk-though `gif` in the image tag below. Make sure the gif actually renders and animates when viewing this README. (☝️ Remove this paragraph after after adding gif)
 
 <img src="lab3-v1.gif" width=200><br>
 
