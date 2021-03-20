@@ -61,6 +61,7 @@ public class AddCardActivity extends AppCompatActivity {
                     data.putExtra("answer", answerToReturn); // the key as 'string2
                     data.putExtra("wrong1", wrongAnswerToReturn1); // the key as 'string1'
                     data.putExtra("wrong2", wrongAnswerToReturn2); // the key as 'string2
+
                     setResult(RESULT_OK, data); // set result code and bundle data for response
                     finish();
                 }
