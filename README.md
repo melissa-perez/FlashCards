@@ -11,6 +11,8 @@ Android Studio, Android SDK 23, Java
 ### App Description
 FlashCards v3 has more functionality. The user can now keep any created cards upon the next app launch. FlashCards uses the persistence library Room to store cards locally on the phone. When more than one flash card is present, users are allowed to cycle through using the next arrow at the bottom of the screen.
 
+Empty file icon credits to: Darius Dan of flaticon.com
+
 
 ### App Walk-though
 
