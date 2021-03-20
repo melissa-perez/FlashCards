@@ -16,7 +16,7 @@ Empty file icon credits to: Darius Dan of flaticon.com
 
 ### App Walk-though
 
-<img src="lab3-v1.gif" width=200><br>
+<img src="lab3-v2.gif" width=200><br>
 
 ## Required
 - [x] User can create a card and still see their created card when the app is relaunched.
