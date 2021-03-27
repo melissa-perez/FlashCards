@@ -1,11 +1,15 @@
 package com.example.flashcards;
 
+import android.animation.Animator;
 import android.content.Intent;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         ImageView deleteCard = findViewById(R.id.trash_icon);
         ImageView emptyState = findViewById(R.id.empty_state);
         TextView emptyStateText = findViewById(R.id.empty_text);
+        final Animation leftOutAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
+                R.anim.left_out);
+        final Animation rightInAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
+                R.anim.right_in);
 
         // determine what to show on entry
         if (allFlashcards != null && allFlashcards.size() > 0) {
@@ -90,8 +98,25 @@ public class MainActivity extends AppCompatActivity {
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                // get the center for the clipping circle
+                int cx = flashcardAnswer.getWidth() / 2;
+                int cy = flashcardAnswer.getHeight() / 2;
+
+                // get the final radius for the clipping circle
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(flashcardAnswer, cx,
+                        cy, 0f, finalRadius);
+
+                // hide the question and show the answer to prepare for playing the animation!
                 flashcardQuestion.setVisibility(View.INVISIBLE);
                 flashcardAnswer.setVisibility(View.VISIBLE);
+
+                anim.setDuration(2000);
+                anim.start();
             }
         });
 
@@ -153,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent addCardIntent = new Intent(MainActivity.this,
                         AddCardActivity.class);
+
                 MainActivity.this.startActivityForResult(addCardIntent, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
 
             }
         });
@@ -186,7 +213,8 @@ public class MainActivity extends AppCompatActivity {
         nextCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allFlashcards != null && allFlashcards.size() > 0) {
+
+                if (allFlashcards != null && allFlashcards.size() > 1) {
 
                     // display a random card
                     currentCardDisplayedIndex = rand.nextInt(allFlashcards.size());
@@ -195,6 +223,10 @@ public class MainActivity extends AppCompatActivity {
                     cardToEdit = allFlashcards.get(currentCardDisplayedIndex);
 
                     // display the next random Card
+
+                    findViewById(R.id.flashcard_question).startAnimation(leftOutAnim);
+                    findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
+
                     flashcardQuestion.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
                     flashcardAnswer.
@@ -206,6 +238,24 @@ public class MainActivity extends AppCompatActivity {
                     wrongAnswer2.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
                 }
+            }
+
+
+        });
+        leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // this method is called when the animation first starts
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // this method is called when the animation is finished playing
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // we don't need to worry about this method
             }
         });
 
