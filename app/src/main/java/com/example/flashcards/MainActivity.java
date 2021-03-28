@@ -3,9 +3,12 @@ package com.example.flashcards;
 import android.animation.Animator;
 import android.content.Intent;
 import com.google.android.material.snackbar.Snackbar;
+import com.plattysoft.leonids.ParticleSystem;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -18,9 +21,14 @@ import android.widget.TextView;
 
 import  java.util.Random;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
+    //final Handler handler_interact=new Handler();
+    //View layout_interact = (View) findViewById(R.id.main_screen);
+
     FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
     Random rand = new Random();
@@ -37,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Flash Cards");
-        findViewById(R.id.timer).bringToFront();
-
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
         allFlashcards = flashcardDatabase.getAllCards();
@@ -60,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 R.anim.left_out);
         final Animation rightInAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
                 R.anim.right_in);
+
+
 
         countDownTimer = new CountDownTimer(16000, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -113,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isShowingBack = true;
-
+                /*
                 // get the center for the clipping circle
                 int cx = flashcardAnswer.getWidth() / 2;
                 int cy = flashcardAnswer.getHeight() / 2;
@@ -131,6 +139,27 @@ public class MainActivity extends AppCompatActivity {
 
                 anim.setDuration(2000);
                 anim.start();
+                */
+                findViewById(R.id.flashcard_question).setCameraDistance(25000);
+                findViewById(R.id.flashcard_answer).setCameraDistance(25000);
+                v.animate()
+                        .rotationY(90)
+                        .setDuration(200)
+                        .withEndAction(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        v.setVisibility(View.INVISIBLE);
+                                        findViewById(R.id.flashcard_answer).setVisibility(View.VISIBLE);
+                                        // second quarter turn
+                                        findViewById(R.id.flashcard_answer).setRotationY(-90);
+                                        findViewById(R.id.flashcard_answer).animate()
+                                                .rotationY(0)
+                                                .setDuration(200)
+                                                .start();
+                                    }
+                                }
+                        ).start();
             }
         });
 
@@ -138,8 +167,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isShowingBack = false;
-                flashcardQuestion.setVisibility(View.VISIBLE);
-                flashcardAnswer.setVisibility(View.INVISIBLE);
+
+                findViewById(R.id.flashcard_answer).setCameraDistance(25000);
+                findViewById(R.id.flashcard_question).setCameraDistance(25000);
+                v.animate()
+                        .rotationY(-90)
+                        .setDuration(200)
+                        .withEndAction(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        v.setVisibility(View.INVISIBLE);
+                                        findViewById(R.id.flashcard_question).setVisibility(View.VISIBLE);
+                                        // second quarter turn
+                                        findViewById(R.id.flashcard_question).setRotationY(90);
+                                        findViewById(R.id.flashcard_question).animate()
+                                                .rotationY(0)
+                                                .setDuration(200)
+                                                .start();
+                                    }
+                                }
+                        ).start();
+                //flashcardQuestion.setVisibility(View.VISIBLE);
+                //flashcardAnswer.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -148,22 +198,71 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 wrongAnswer1.setBackgroundColor(getResources().getColor(R.color.incorrect_red,
                         null));
+                new CountDownTimer(1000, 10) {
+
+                    @Override
+                    public void onTick(long arg0) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        wrongAnswer1.setBackgroundColor(getResources().getColor(R.color.shock_purple,
+                                null));
+                    }
+                }.start();
             }
         });
 
         wrongAnswer2.setOnClickListener(new View.OnClickListener() {
             @Override
+            //thank you Stack over flow -Anu
             public void onClick(View v) {
                 wrongAnswer2.setBackgroundColor(getResources().getColor(R.color.incorrect_red,
                         null));
+                new CountDownTimer(1000, 10) {
+
+                    @Override
+                    public void onTick(long arg0) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        wrongAnswer2.setBackgroundColor(getResources().getColor(R.color.shock_purple,
+                                null));
+                    }
+                }.start();
+
             }
         });
 
         correctAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 correctAnswer.setBackgroundColor(getResources().getColor(R.color.correct_green,
                         null));
+                new CountDownTimer(1000, 10) {
+
+                    @Override
+                    public void onTick(long arg0) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        correctAnswer.setBackgroundColor(getResources().getColor(R.color.shock_purple,
+                                null));
+                    }
+                }.start();
+             
+                new ParticleSystem(MainActivity.this, 100, R.drawable.confetti, 3000)
+                        .setSpeedRange(0.2f, 0.5f)
+                        .oneShot(findViewById(R.id.choice3), 100);
             }
         });
 
@@ -363,6 +462,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        //creating timer
+        Timer timer_interact=new Timer();
+        timer_interact.schedule(new TimerTask() {
+            @Override
+            public void run() {UpdateGUI();}
+        }, 3000);
+    }
+    private void UpdateGUI() {
+        //handler_interact.post(runnable_interact);
+    }
+    //creating runnable
+    final Runnable runnable_interact = new Runnable() {
+        public void run() {
+            //layout_interact.setBackgroundColor(getResources().getColor(R.color.incorrect_red,
+                    //null));
+        }
+    };
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
