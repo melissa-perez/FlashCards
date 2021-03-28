@@ -12,7 +12,7 @@ Android Studio, Android SDK 23, Java
 `TODO://` Add app description
 
 ### App Walk-though
-<img src="lab4-v2.gif" width=200>
+<img src="lab4-v2.gif" width=200><br>
 <img src="lab4-v1.gif" width=200><br>
 
 ## Required
