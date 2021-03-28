@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -20,13 +21,15 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    boolean isShowingAnswers = false;
-
     FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
     Random rand = new Random();
+    CountDownTimer countDownTimer;
 
+    boolean isShowingAnswers = false;
+    boolean isShowingBack = false;
     int currentCardDisplayedIndex = 0;
+    
     Flashcard cardToEdit = null;
 
     @Override
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                isShowingBack = true;
 
                 // get the center for the clipping circle
                 int cx = flashcardAnswer.getWidth() / 2;
@@ -123,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         flashcardAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isShowingBack = false;
                 flashcardQuestion.setVisibility(View.VISIBLE);
                 flashcardAnswer.setVisibility(View.INVISIBLE);
             }
@@ -181,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
 
                 MainActivity.this.startActivityForResult(addCardIntent, 100);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
-
             }
         });
 
@@ -224,9 +227,6 @@ public class MainActivity extends AppCompatActivity {
 
                     // display the next random Card
 
-                    findViewById(R.id.flashcard_question).startAnimation(leftOutAnim);
-                    findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
-
                     flashcardQuestion.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
                     flashcardAnswer.
@@ -237,20 +237,28 @@ public class MainActivity extends AppCompatActivity {
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
                     wrongAnswer2.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
+
+                    if (isShowingBack) {
+                        flashcardAnswer.setVisibility(View.INVISIBLE);
+                        flashcardAnswer.setVisibility(View.VISIBLE);
+                        findViewById(R.id.flashcard_answer).startAnimation(rightInAnim);
+                    }
+                    else{
+                        findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
+                    }
                 }
             }
-
-
         });
+
         leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // this method is called when the animation first starts
+                findViewById(R.id.flashcard_question).startAnimation(leftOutAnim);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // this method is called when the animation is finished playing
+                findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
             }
 
             @Override
@@ -341,7 +349,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
