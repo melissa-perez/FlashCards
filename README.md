@@ -1,7 +1,7 @@
 ## Flash Cards
 
 ### App Description
-FlashCards is an Android application that allows users to create virtual flash cards for memorization and learning.
+Flash Cards is an Android application that allows users to create virtual flash cards for memorization and learning.
 
 ### Tools Used
 Android Studio, Android SDK 23, Java
