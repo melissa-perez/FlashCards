@@ -6,6 +6,15 @@ Flash Cards is an Android application that allows users to create virtual flash 
 ### Tools Used
 Android Studio, Android SDK 23, Java
 
+## Future Stories
+-[] Implement "fast-mode"
+-[] Fix timer to only show in "fast-mode"
+-[] Separate edit and add activity views
+-[] Add authentication
+-[] Refactor code
+-[] Make multiple choice an option in the add card screen
+-[] Add tags to cards
+
 ## Lab 4
 
 ### App Description
