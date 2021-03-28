@@ -5,6 +5,7 @@
     android:background="@color/deep_purple"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main_screen"
     tools:context=".MainActivity">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:textSize="40dp"
@@ -27,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:visibility="invisible"
@@ -87,11 +88,10 @@
 
     <ImageView
         android:id="@+id/empty_state"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:srcCompat="@drawable/empty_file"
-        />
+        app:srcCompat="@drawable/empty_file" />
 
     <TextView
         android:id="@+id/empty_text"
@@ -190,7 +190,20 @@
         android:layout_marginBottom="10dp"
         android:tint="@color/white"
         android:layout_above="@id/edit_icon"/>
-    />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="108dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="15"
+        android:textAlignment="center"
+        android:textColor="@color/incorrect_red"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp"
+        />
 
 </RelativeLayout>
 

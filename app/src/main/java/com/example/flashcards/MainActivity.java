@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isShowingAnswers = false;
     boolean isShowingBack = false;
     int currentCardDisplayedIndex = 0;
-    
+
     Flashcard cardToEdit = null;
 
     @Override
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setTitle("Flash Cards");
+        findViewById(R.id.timer).bringToFront();
 
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
@@ -60,11 +61,21 @@ public class MainActivity extends AppCompatActivity {
         final Animation rightInAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
                 R.anim.right_in);
 
+        countDownTimer = new CountDownTimer(16000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                ((TextView) findViewById(R.id.timer)).setText("" + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+            }
+        };
+
         // determine what to show on entry
         if (allFlashcards != null && allFlashcards.size() > 0) {
 
             currentCardDisplayedIndex = rand.nextInt(allFlashcards.size());
             cardToEdit = allFlashcards.get(currentCardDisplayedIndex);
+            startTimer();
 
             flashcardQuestion.setVisibility(View.VISIBLE);
 
@@ -238,12 +249,14 @@ public class MainActivity extends AppCompatActivity {
                     wrongAnswer2.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
 
+
                     if (isShowingBack) {
                         flashcardAnswer.setVisibility(View.INVISIBLE);
                         flashcardAnswer.setVisibility(View.VISIBLE);
                         findViewById(R.id.flashcard_answer).startAnimation(rightInAnim);
                     }
                     else{
+                        startTimer();
                         findViewById(R.id.flashcard_question).startAnimation(rightInAnim);
                     }
                 }
@@ -432,5 +445,10 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.LENGTH_SHORT)
                     .show();
         }
+    }
+
+    private void startTimer() {
+        countDownTimer.cancel();
+        countDownTimer.start();
     }
 }
