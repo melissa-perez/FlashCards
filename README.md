@@ -23,6 +23,7 @@ the animation was a circular reveal which was later changed to a card flip. The 
 
 Lastly, a timer was added to give the users a timed interval to answer the question. For incorrect answers, the button now highlights red for a second and for correct, green. Celebration confetti is also added when the correct answer is tapped.
 
+Launcher icon credits to: freepik of flaticon
 Button reset code credits to: Anu of stackoverflow.com
 
 ### App Walk-though
