@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             wrongAnswer1.setVisibility(View.INVISIBLE);
             wrongAnswer2.setVisibility(View.INVISIBLE);
             correctAnswer.setVisibility(View.INVISIBLE);
-            timeView.setVisibility(View.INVISIBLE);
+
 
             emptyState.setVisibility(View.VISIBLE);
             emptyStateText.setVisibility(View.VISIBLE);
@@ -299,9 +299,11 @@ public class MainActivity extends AppCompatActivity {
                     startTimer();
 
                 } else {
-                    timerToggle.setImageResource(R.drawable.ic_iconmonstr_time_19);
-                    timeView.setVisibility(View.INVISIBLE);
 
+                    if(allFlashcards.size() > 0){
+                        timerToggle.setImageResource(R.drawable.ic_iconmonstr_time_19);
+                        timeView.setVisibility(View.INVISIBLE);
+                    }
                     isFastModeOn = false;
                 }
             }
@@ -479,6 +481,8 @@ public class MainActivity extends AppCompatActivity {
                         emptyState.setVisibility(View.VISIBLE);
                         emptyStateText.setVisibility(View.VISIBLE);
                         eyeToggle.setImageResource(R.drawable.ic_iconmonstr_eye_thin);
+                        timerToggle.setImageResource(R.drawable.ic_iconmonstr_time_21);
+
                     }
                 }
             }
