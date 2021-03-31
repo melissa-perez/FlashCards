@@ -18,8 +18,8 @@ Android Studio, Android SDK 23, Java
 ## Lab 4
 
 ### App Description
-FlashCards v4 adds to the user experience. When loading to the add card screen, the screen animates to the right. When the answer is displayed, an animation is show. Originally
-the animation was a circular reveal which was later changed to a card flip animation. The same right animation is also used when changing to the next card in the deck.
+FlashCards v4 adds to the user experience. When loading the add card screen, the screen animates to the right. When the answer is displayed, an animation is shown. Originally
+the animation was a circular reveal which was later changed to a card flip. The same right animation is also used when changing to the next card in the deck.
 
 Lastly, a timer was added to give the users a timed interval to answer the question. For incorrect answers, the button now highlights red for a second and for correct, green. Celebration confetti is also added when the correct answer is tapped.
 
