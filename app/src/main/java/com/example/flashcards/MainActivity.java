@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isShowingAnswers = false;
     boolean isShowingBack = false;
+    boolean isFastModeOn = false;
     int currentCardDisplayedIndex = 0;
 
     Flashcard cardToEdit = null;
@@ -52,22 +53,24 @@ public class MainActivity extends AppCompatActivity {
         // UI display ID's
         TextView flashcardQuestion = findViewById(R.id.flashcard_question);
         TextView flashcardAnswer = findViewById(R.id.flashcard_answer);
-        ImageView eyeToggle = findViewById(R.id.unhide_icon);
-        ImageView editCard = findViewById(R.id.edit_icon);
-        ImageView addCard = findViewById(R.id.add_icon);
         TextView wrongAnswer1 = findViewById(R.id.choice1);
         TextView wrongAnswer2 = findViewById(R.id.choice2);
         TextView correctAnswer = findViewById(R.id.choice3);
+        TextView emptyStateText = findViewById(R.id.empty_text);
+        TextView timeView = findViewById(R.id.timer);
+
+        ImageView eyeToggle = findViewById(R.id.unhide_icon);
+        ImageView timerToggle = findViewById(R.id.timer_off);
+        ImageView editCard = findViewById(R.id.edit_icon);
+        ImageView addCard = findViewById(R.id.add_icon);
         ImageView nextCard = findViewById(R.id.cycle_icon);
         ImageView deleteCard = findViewById(R.id.trash_icon);
         ImageView emptyState = findViewById(R.id.empty_state);
-        TextView emptyStateText = findViewById(R.id.empty_text);
+
         final Animation leftOutAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
                 R.anim.left_out);
         final Animation rightInAnim = AnimationUtils.loadAnimation(flashcardQuestion.getContext(),
                 R.anim.right_in);
-
-
 
         countDownTimer = new CountDownTimer(16000, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
+
             }
         };
 
@@ -83,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
             currentCardDisplayedIndex = rand.nextInt(allFlashcards.size());
             cardToEdit = allFlashcards.get(currentCardDisplayedIndex);
-            startTimer();
 
             flashcardQuestion.setVisibility(View.VISIBLE);
 
@@ -112,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
             wrongAnswer1.setVisibility(View.INVISIBLE);
             wrongAnswer2.setVisibility(View.INVISIBLE);
             correctAnswer.setVisibility(View.INVISIBLE);
+            timeView.setVisibility(View.INVISIBLE);
 
             emptyState.setVisibility(View.VISIBLE);
             emptyStateText.setVisibility(View.VISIBLE);
@@ -259,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
                                 null));
                     }
                 }.start();
-             
+
                 new ParticleSystem(MainActivity.this, 100, R.drawable.confetti, 3000)
                         .setSpeedRange(0.2f, 0.5f)
                         .oneShot(findViewById(R.id.choice3), 100);
@@ -284,6 +288,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        timerToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isFastModeOn && allFlashcards != null && allFlashcards.size() > 0 ) {
+                    isFastModeOn = true;
+                    timerToggle.setImageResource(R.drawable.ic_iconmonstr_time_21);
+                    timeView.setVisibility(View.VISIBLE);
+                    startTimer();
+
+                } else {
+                    timerToggle.setImageResource(R.drawable.ic_iconmonstr_time_19);
+                    timeView.setVisibility(View.INVISIBLE);
+
+                    isFastModeOn = false;
+                }
+            }
+        });
+
 
         // Add Button, bottom right anchor
         addCard.setOnClickListener(new View.OnClickListener() {
@@ -347,7 +370,6 @@ public class MainActivity extends AppCompatActivity {
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
                     wrongAnswer2.
                             setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
-
 
                     if (isShowingBack) {
                         flashcardAnswer.setVisibility(View.INVISIBLE);

@@ -180,6 +180,37 @@
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:id="@+id/timer_off"
+        android:src="@drawable/ic_iconmonstr_time_21"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:tint="@color/white"
+        android:layout_above="@id/add_icon"/>
+    />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/timer_on"
+        android:src="@drawable/ic_iconmonstr_time_19"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:tint="@color/white"
+        android:visibility="invisible"
+        android:layout_above="@id/add_icon"/>
+    />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:id="@+id/trash_icon"
         android:src="@drawable/ic_iconmonstr_trash_can_thin"
         android:layout_alignLeft="@id/cycle_icon"
@@ -203,6 +234,7 @@
         android:textColor="@color/incorrect_red"
         android:textSize="30dp"
         android:layout_marginTop="5dp"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>
